@@ -1,0 +1,72 @@
+<html>
+
+<head>
+  <title>ITS365MarcusNunezPerceptronHW</title>
+</head>
+
+<body>
+	<h1>ITS365 - MarcusNunez - Perceptron Homework</h1>
+	
+	<br>
+	<input type="checkbox" id="1x1">
+	<input type="checkbox" id="1x2">
+	<input type="checkbox" id="1x3">
+	<input type="checkbox" id="1x4">
+	
+	<br>
+	<input type="checkbox" id="2x1">
+	<input type="checkbox" id="2x2">
+	<input type="checkbox" id="2x3">
+	<input type="checkbox" id="2x4">
+	
+	<br>
+	<input type="checkbox" id="3x1">
+	<input type="checkbox" id="3x2">
+	<input type="checkbox" id="3x3">
+	<input type="checkbox" id="3x4">
+	
+	<br>
+	<input type="checkbox" id="4x1">
+	<input type="checkbox" id="4x2">
+	<input type="checkbox" id="4x3">
+	<input type="checkbox" id="4x4">
+	
+	<br><br>
+	<button id="predict" onclick="user_input();">Predict</button>
+	<p id="output"></p>
+
+<script>
+let weights = [
+    0, 0.02, 0.02, 0.01,
+    0, 0.01, 0.03, 0,
+    -0.02, 0, 0, 0,
+    -0.01, 0, -0.02, -0.02
+	];
+
+let bias = 0;
+
+function activation_function(z) {return z >= 0 ? 1 : -1;}
+
+function predict(inputs) {
+	let linear_product = 0;
+    for (let i = 0; i < weights.length; i++) {linear_product += inputs[i] * weights[i];}
+    linear_product += bias;
+    return activation_function(linear_product);
+	}
+
+function user_input() {
+	let input = [];
+    for (let row = 1; row <= 4; row++) {
+		for (let col = 1; col <= 4; col++) {
+			let checkbox = document.getElementById(`${row}x${col}`);
+			input.push(checkbox.checked ? 1 : 0);
+      }
+    }
+
+    let result = predict(input);
+    document.getElementById("output").innerText = result === 1 ? "T" : "L";
+  }
+</script>
+
+</body>
+</html>
